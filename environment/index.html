@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detecting your environment &mdash; CMake Workshop  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/coderefinery.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Finding and using dependencies" href="../dependencies/" />
+    <link rel="prev" title="Target-based build systems with CMake" href="../targets/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            CMake Workshop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setting up your system</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/">Motivation and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tour/">Brief tour to demonstrate concepts/capabilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hands-on workshop</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hello-cmake/">From sources to executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flags-definitions-debugging/">Compile flags, definitions, and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../targets/">Target-based build systems with CMake</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Detecting your environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#discovering-the-operating-system">Discovering the operating system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discovering-processor-capabilities-and-generating-a-configuration-file">Discovering processor capabilities and generating a configuration file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Finding and using dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/">Creating and running tests with CTest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fetch-content/">Automated dependency handling with FetchContent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../growing-projects/">Growing projects: pitfalls and recommendations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../resources/">Resources and books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits/">Credits</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">CMake Workshop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Detecting your environment</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/cmake-workshop/blob/main/content/environment.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="detecting-your-environment">
+<span id="environment"></span><h1>Detecting your environment<a class="headerlink" href="#detecting-your-environment" title="Permalink to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn how to discover the operating system and processor capabilities.</p></li>
+<li><p>Learn how to handle platform- and compiler-dependent source code.</p></li>
+</ul>
+</div>
+<p>CMake comes pre-configured with sane defaults for a multitude of properties of
+the environments in which it can be used.  Default generator, default compilers,
+and compiler flags are few and most notable examples of this up-front
+configuration.</p>
+<p>Run the following if you are curious about what kind of configuration ships for
+your version of CMake and operating system:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--system-information
+</pre></div>
+</div>
+<p>In this episode, we will show how to use CMake to introspect the environment in
+which we are running. This is very common in build systems, since it allows to
+customize the creation of artifacts on-the-fly.</p>
+<section id="discovering-the-operating-system">
+<h2>Discovering the operating system<a class="headerlink" href="#discovering-the-operating-system" title="Permalink to this heading"></a></h2>
+<p>Sometimes we need to write code that performs different operations based on
+compile-time constants.
+Like in this example (<code class="docutils literal notranslate"><span class="pre">example.cpp</span></code>):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">say_hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#ifdef IS_WINDOWS</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;Hello from Windows!&quot;</span><span class="p">);</span>
+<span class="cp">#elif IS_LINUX</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;Hello from Linux!&quot;</span><span class="p">);</span>
+<span class="cp">#elif IS_MACOS</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;Hello from macOS!&quot;</span><span class="p">);</span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">&quot;Hello from an unknown system!&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">say_hello</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition-conditional-compilation-with-preprocessor-definitions typealong toggle-shown dropdown admonition" id="typealong-0">
+<p class="admonition-title">Conditional compilation with preprocessor definitions</p>
+<p>We can do this with the following <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># set minimum cmake version</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.14</span><span class="p">)</span>
+
+<span class="c"># project name and language</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="c"># define executable and its source file</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">example.cpp</span><span class="p">)</span>
+
+<span class="c"># let the preprocessor know about the system name</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;Linux&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s2">&quot;IS_LINUX&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;Darwin&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s2">&quot;IS_MACOS&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;Windows&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s2">&quot;IS_WINDOWS&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We achieved this with a combination of host system
+introspection and the <a class="reference internal" href="https://cmake.org/cmake/help/latest/command/target_compile_definitions.html"><span class="xref std std-term"><code class="docutils literal notranslate">target_compile_definitions</code></span></a> command.</p>
+</div>
+</section>
+<section id="discovering-processor-capabilities-and-generating-a-configuration-file">
+<h2>Discovering processor capabilities and generating a configuration file<a class="headerlink" href="#discovering-processor-capabilities-and-generating-a-configuration-file" title="Permalink to this heading"></a></h2>
+<p>A common customization is to apply processor-specific compiler flags. We can
+gain such information on the host system with the built-in
+<a class="reference internal" href="https://cmake.org/cmake/help/latest/command/cmake_host_system_information.html"><span class="xref std std-term"><code class="docutils literal notranslate">cmake_host_system_information</code></span></a> command.</p>
+<p>Another thing that is common and convenient is to have a single file containing
+all these compile-time constants, rather than passing them to preprocessor.
+This can be achieved by having a <em>scaffold</em> file and then letting CMake
+configure it with <a class="reference internal" href="https://cmake.org/cmake/help/latest/command/configure_file.html"><span class="xref std std-term"><code class="docutils literal notranslate">configure_file</code></span></a> after discovering the values for all the
+necessary compile-time constants.</p>
+<p>Here is an example source file (<code class="docutils literal notranslate"><span class="pre">example.cpp</span></code>):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;config.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Number of logical cores: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">NUMBER_OF_LOGICAL_CORES</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Number of physical cores: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">NUMBER_OF_PHYSICAL_CORES</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Processor is 64Bit: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">IS_64BIT</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Processor supports SSE2 instructions: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">HAS_SSE2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;OS name: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">OS_NAME</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;OS sub-type: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">OS_RELEASE</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// we will add these two later:</span>
+<span class="w">  </span><span class="c1">// std::cout &lt;&lt; &quot;Compiler: &quot; &lt;&lt; COMPILER &lt;&lt; std::endl;</span>
+<span class="w">  </span><span class="c1">// std::cout &lt;&lt; &quot;Compiler version: &quot; &lt;&lt; COMPILER_VERSION &lt;&lt; std::endl;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The file <code class="docutils literal notranslate"><span class="pre">config.h</span></code> does not exist, it will be generated at configure time
+from <code class="docutils literal notranslate"><span class="pre">config-template.h</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+
+<span class="cp">#define NUMBER_OF_LOGICAL_CORES  @_NUMBER_OF_LOGICAL_CORES@</span>
+<span class="cp">#define NUMBER_OF_PHYSICAL_CORES @_NUMBER_OF_PHYSICAL_CORES@</span>
+<span class="cp">#define IS_64BIT                 @_IS_64BIT@</span>
+<span class="cp">#define HAS_SSE2                 @_HAS_SSE2@</span>
+<span class="cp">#define OS_NAME                 &quot;@_OS_NAME@&quot;</span>
+<span class="cp">#define OS_RELEASE              &quot;@_OS_RELEASE@&quot;</span>
+</pre></div>
+</div>
+<p>Here is the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> which takes care of introspection and also
+generates the file <code class="docutils literal notranslate"><span class="pre">config.h</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.14</span><span class="p">)</span>
+
+<span class="nb">project</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="s">CMakePrintHelpers</span><span class="p">)</span>
+
+<span class="nb">foreach</span><span class="p">(</span><span class="s">key</span>
+<span class="w">  </span><span class="s">IN</span><span class="w"> </span><span class="s">ITEMS</span>
+<span class="w">    </span><span class="s">NUMBER_OF_LOGICAL_CORES</span>
+<span class="w">    </span><span class="s">NUMBER_OF_PHYSICAL_CORES</span>
+<span class="w">    </span><span class="s">IS_64BIT</span>
+<span class="w">    </span><span class="s">HAS_SSE2</span>
+<span class="w">    </span><span class="s">OS_NAME</span>
+<span class="w">    </span><span class="s">OS_RELEASE</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="w">  </span><span class="c"># query the item ${key} and save its value in the variable _${key}</span>
+<span class="w">  </span><span class="nb">cmake_host_system_information</span><span class="p">(</span><span class="s">RESULT</span><span class="w"> </span><span class="s">_</span><span class="o">${</span><span class="nv">key</span><span class="o">}</span><span class="w"> </span><span class="s">QUERY</span><span class="w"> </span><span class="o">${</span><span class="nv">key</span><span class="o">}</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">cmake_print_variables</span><span class="p">(</span><span class="s">_</span><span class="o">${</span><span class="nv">key</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endforeach</span><span class="p">()</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">example.cpp</span><span class="p">)</span>
+
+<span class="c"># this is here because the config.h will be generated in PROJECT_BINARY_DIR</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">example</span>
+<span class="w">  </span><span class="s">PRIVATE</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span>
+<span class="w">  </span><span class="p">)</span>
+
+<span class="hll"><span class="nb">configure_file</span><span class="p">(</span><span class="s">config-template.h</span><span class="w"> </span><span class="s">config.h</span><span class="w"> </span><span class="s">@ONLY</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="admonition-exercise-record-more-useful-information-using-configure-file exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise: record more useful information using configure_file</p>
+<p>Your goal is to adapt the above example (<code class="docutils literal notranslate"><span class="pre">content/examples/configure-file/problem/</span></code>)
+and make it possible to get the compiler and compiler version into the
+output of your code:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;config.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Number of logical cores: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">NUMBER_OF_LOGICAL_CORES</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Number of physical cores: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">NUMBER_OF_PHYSICAL_CORES</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Processor is 64Bit: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">IS_64BIT</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Processor supports SSE2 instructions: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">HAS_SSE2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;OS name: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">OS_NAME</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;OS sub-type: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">OS_RELEASE</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// we will add these two later:</span>
+<span class="hll"><span class="w">  </span><span class="c1">// std::cout &lt;&lt; &quot;Compiler: &quot; &lt;&lt; COMPILER &lt;&lt; std::endl;</span>
+</span><span class="hll"><span class="w">  </span><span class="c1">// std::cout &lt;&lt; &quot;Compiler version: &quot; &lt;&lt; COMPILER_VERSION &lt;&lt; std::endl;</span>
+</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Hints:</p>
+<ul class="simple">
+<li><p>You will only need to uncomment these and only have to modify <code class="docutils literal notranslate"><span class="pre">configure-template.h</span></code>.</p></li>
+<li><p>You will not need to modify <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p></li>
+<li><p>To find the relevant CMake variable names, have a look in <a class="reference internal" href="../flags-definitions-debugging/#flags-definitions-debugging"><span class="std std-ref">Compile flags, definitions, and debugging</span></a>.</p></li>
+</ul>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<p><strong>What else to record when configuring?</strong> Here are some ideas:</p>
+<ul class="simple">
+<li><p>Code version and/or Git hash</p></li>
+<li><p>Compiler versions</p></li>
+<li><p>Compiler flags</p></li>
+<li><p>Compile-time definitions</p></li>
+<li><p>Library versions</p></li>
+<li><p>Some environment variables</p></li>
+</ul>
+<p>Discuss how they can be useful for you and others running your code.</p>
+</div>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>CMake can <em>introspect</em> the host system.</p></li>
+<li><p>You can build source code differently, based on the OS, the processor, the
+compiler, or any combination thereof.</p></li>
+<li><p>You can generate source code when configuring the project with <a class="reference internal" href="https://cmake.org/cmake/help/latest/command/configure_file.html"><span class="xref std std-term"><code class="docutils literal notranslate">configure_file</code></span></a>.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../targets/" class="btn btn-neutral float-left" title="Target-based build systems with CMake" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../dependencies/" class="btn btn-neutral float-right" title="Finding and using dependencies" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, EuroCC National Competence Centre Sweden (this is derived work from the ENCCS workshop, see &#39;Credits&#39; about changes).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brief tour to demonstrate concepts/capabilities &mdash; CMake Workshop  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/coderefinery.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="From sources to executables" href="../hello-cmake/" />
+    <link rel="prev" title="Motivation and overview" href="../motivation/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            CMake Workshop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setting up your system</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../motivation/">Motivation and overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Brief tour to demonstrate concepts/capabilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hands-on workshop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hello-cmake/">From sources to executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flags-definitions-debugging/">Compile flags, definitions, and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../targets/">Target-based build systems with CMake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environment/">Detecting your environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Finding and using dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/">Creating and running tests with CTest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fetch-content/">Automated dependency handling with FetchContent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../growing-projects/">Growing projects: pitfalls and recommendations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../resources/">Resources and books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits/">Credits</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">CMake Workshop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Brief tour to demonstrate concepts/capabilities</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/cmake-workshop/blob/main/content/tour.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="brief-tour-to-demonstrate-concepts-capabilities">
+<span id="tour"></span><h1>Brief tour to demonstrate concepts/capabilities<a class="headerlink" href="#brief-tour-to-demonstrate-concepts-capabilities" title="Permalink to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Get a feel for how CMake looks.</p></li>
+<li><p>See 2-3 use cases where CMake shines (environment/library discovery, code
+generation, testing, modular code structure, Fortran 90 support).</p></li>
+<li><p>The goal here is not to focus on syntax or details but rather the big picture and the potential.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To follow-along in your terminal you can clone or download the tutorial repository
+(<a class="reference external" href="https://github.com/coderefinery/cmake-workshop">https://github.com/coderefinery/cmake-workshop</a>):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/coderefinery/cmake-workshop.git
+</pre></div>
+</div>
+<p>You find the example in the <a class="reference external" href="https://github.com/coderefinery/cmake-workshop/tree/main/content/examples/calculator">content/examples/calculator/</a>
+folder.</p>
+</div>
+<p>We will discuss an example project “calculator” which can add and subtract
+and is a mixed Fortran-C++ project with the following layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>calculator/
+<span class="hll">├── CMakeLists.txt
+</span>├── src
+│   ├── add.f90
+│   ├── calculator.h
+<span class="hll">│   ├── CMakeLists.txt
+</span><span class="hll">│   ├── git-version.cmake
+</span>│   ├── main.cpp
+│   ├── subtract.f90
+│   └── version-template.h
+└── test
+    ├── calculator.cpp
+<span class="hll">    ├── CMakeLists.txt
+</span>    └── driver.cpp
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p>Before we have a closer look we open up the top-level <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> and for the moment comment out
+the part with the testing. We will bring it back later:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c"># stop if CMake version is below 3.0</span>
+<span class="linenos"> 2</span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.0</span><span class="w"> </span><span class="s">FATAL_ERROR</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c"># project name and supported languages</span>
+<span class="linenos"> 5</span><span class="nb">project</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">VERSION</span><span class="w"> </span><span class="s">1.0.0</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="w"> </span><span class="s">Fortran</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c"># require C++11</span>
+<span class="linenos"> 8</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">11</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_EXTENSIONS</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+<span class="linenos">10</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c"># specify where to place binaries and libraries</span>
+<span class="linenos">13</span><span class="c"># so they end up in standard places with &quot;make install&quot;</span>
+<span class="linenos">14</span><span class="nb">include</span><span class="p">(</span><span class="s">GNUInstallDirs</span><span class="p">)</span>
+<span class="linenos">15</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_ARCHIVE_OUTPUT_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">CMAKE_INSTALL_LIBDIR</span><span class="o">}</span><span class="p">)</span>
+<span class="linenos">16</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_LIBRARY_OUTPUT_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">CMAKE_INSTALL_LIBDIR</span><span class="o">}</span><span class="p">)</span>
+<span class="linenos">17</span><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_RUNTIME_OUTPUT_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">CMAKE_INSTALL_BINDIR</span><span class="o">}</span><span class="p">)</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="c"># process src/CMakeLists.txt</span>
+<span class="linenos">20</span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">src</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c"># enable testing</span>
+<span class="hll"><span class="linenos">23</span><span class="nb">enable_testing</span><span class="p">()</span>
+</span><span class="linenos">24</span>
+<span class="linenos">25</span><span class="c"># process test/CMakeLists.txt</span>
+<span class="hll"><span class="linenos">26</span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">test</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</li>
+<li><p>Now we build the project and observe what it means to build out of source.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>-S.<span class="w"> </span>-Bbuild
+<span class="gp">$ </span>cmake<span class="w"> </span>--build<span class="w"> </span>build
+</pre></div>
+</div>
+<p>But many people (especially CMake old-timers like the presenter) do this instead with Unix Makefiles:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>build
+<span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>build
+<span class="gp">$ </span>cmake<span class="w"> </span>..
+<span class="gp">$ </span>make
+</pre></div>
+</div>
+</li>
+<li><p>We also run the compiled binary:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./bin/calculator.x
+
+<span class="go">Running calculator version v1.0.0</span>
+<span class="go">Configure-time Git hash: fca3425</span>
+
+<span class="go">2 + 3 = 5</span>
+<span class="go">2 - 3 = -1</span>
+</pre></div>
+</div>
+</li>
+<li><p>We browse and discuss the main <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> and also <code class="docutils literal notranslate"><span class="pre">src/CMakeLists.txt</span></code>.</p></li>
+<li><p>We discuss how the Git hash ends up in the generated <code class="docutils literal notranslate"><span class="pre">version.h</span></code> with the
+help of:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c"># in case Git is not available, we default to &quot;unknown&quot;</span>
+<span class="linenos"> 2</span><span class="nb">set</span><span class="p">(</span><span class="s">GIT_HASH</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c"># find Git and if available set GIT_HASH variable</span>
+<span class="linenos"> 5</span><span class="nb">find_package</span><span class="p">(</span><span class="s">Git</span><span class="w"> </span><span class="s">QUIET</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="nb">if</span><span class="p">(</span><span class="s">GIT_FOUND</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nb">execute_process</span><span class="p">(</span>
+<span class="hll"><span class="linenos"> 9</span><span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nv">GIT_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="s">--no-pager</span><span class="w"> </span><span class="s">show</span><span class="w"> </span><span class="s">-s</span><span class="w"> </span><span class="s">--pretty=format:%h</span><span class="w"> </span><span class="s">-n</span><span class="w"> </span><span class="s">1</span>
+</span><span class="linenos">10</span><span class="w">    </span><span class="s">OUTPUT_VARIABLE</span><span class="w"> </span><span class="s">GIT_HASH</span>
+<span class="linenos">11</span><span class="w">    </span><span class="s">OUTPUT_STRIP_TRAILING_WHITESPACE</span>
+<span class="linenos">12</span><span class="w">    </span><span class="s">WORKING_DIRECTORY</span>
+<span class="linenos">13</span><span class="w">      </span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span>
+<span class="linenos">14</span><span class="w">    </span><span class="s">ERROR_QUIET</span>
+<span class="linenos">15</span><span class="w">    </span><span class="p">)</span>
+<span class="linenos">16</span><span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Then we re-activate the testing, reconfigure from scratch (this is not needed but it shows the moment better
+when the external library is downloaded):</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c"># enable FetchContent</span>
+<span class="hll"><span class="linenos"> 2</span><span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+</span><span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c"># declare where to find the dependency</span>
+<span class="hll"><span class="linenos"> 5</span><span class="nb">FetchContent_Declare</span><span class="p">(</span><span class="s">GoogleTest</span>
+</span><span class="hll"><span class="linenos"> 6</span><span class="w">  </span><span class="s">GIT_REPOSITORY</span><span class="w"> </span><span class="s">https://github.com/google/googletest.git</span>
+</span><span class="hll"><span class="linenos"> 7</span><span class="w">  </span><span class="s">GIT_TAG</span><span class="w">        </span><span class="s">release-1.11.0</span>
+</span><span class="hll"><span class="linenos"> 8</span><span class="w">  </span><span class="p">)</span>
+</span><span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c"># bring the dependency into scope</span>
+<span class="hll"><span class="linenos">11</span><span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">GoogleTest</span><span class="p">)</span>
+</span><span class="linenos">12</span>
+<span class="linenos">13</span><span class="c"># build and link the unit_tests executable</span>
+<span class="linenos">14</span><span class="nb">add_executable</span><span class="p">(</span><span class="s">unit_tests</span><span class="p">)</span>
+<span class="linenos">15</span><span class="nb">target_sources</span><span class="p">(</span>
+<span class="linenos">16</span><span class="w">  </span><span class="s">unit_tests</span>
+<span class="linenos">17</span><span class="w">  </span><span class="s">PRIVATE</span>
+<span class="linenos">18</span><span class="w">    </span><span class="s">calculator.cpp</span>
+<span class="linenos">19</span><span class="w">    </span><span class="s">driver.cpp</span>
+<span class="linenos">20</span><span class="w">  </span><span class="p">)</span>
+<span class="linenos">21</span><span class="nb">target_link_libraries</span><span class="p">(</span>
+<span class="linenos">22</span><span class="w">  </span><span class="s">unit_tests</span>
+<span class="linenos">23</span><span class="w">  </span><span class="s">PRIVATE</span>
+<span class="linenos">24</span><span class="w">    </span><span class="s">calculator</span>
+<span class="hll"><span class="linenos">25</span><span class="w">    </span><span class="s">gtest_main</span><span class="w">  </span><span class="c"># this target is not here, we fetch it from the web (above)</span>
+</span><span class="linenos">26</span><span class="w">  </span><span class="p">)</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="c"># define tests</span>
+<span class="linenos">29</span><span class="nb">add_test</span><span class="p">(</span>
+<span class="linenos">30</span><span class="w">  </span><span class="s">NAME</span><span class="w"> </span><span class="s">adding</span>
+<span class="linenos">31</span><span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">$&lt;</span><span class="nv">TARGET_FILE:unit_tests</span><span class="o">&gt;</span><span class="w"> </span><span class="s">--gtest_filter=calculator.add</span>
+<span class="linenos">32</span><span class="w">  </span><span class="p">)</span>
+<span class="linenos">33</span><span class="nb">add_test</span><span class="p">(</span>
+<span class="linenos">34</span><span class="w">  </span><span class="s">NAME</span><span class="w"> </span><span class="s">subtracting</span>
+<span class="linenos">35</span><span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">$&lt;</span><span class="nv">TARGET_FILE:unit_tests</span><span class="o">&gt;</span><span class="w"> </span><span class="s">--gtest_filter=calculator.subtract</span>
+<span class="linenos">36</span><span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>We build and run the test set:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ctest
+</pre></div>
+</div>
+</li>
+<li><p>We also run the test set (consisting of two tests) in parallel:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ctest<span class="w"> </span>-j<span class="w"> </span><span class="m">2</span>
+</pre></div>
+</div>
+</li>
+<li><p>For the Fortran folks we create one more Fortran module and “use” it in
+<code class="docutils literal notranslate"><span class="pre">add.f90</span></code> and demonstrate that the order does not matter and CMake figures
+it out.</p></li>
+<li><p>We try the install target:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mkdir<span class="w"> </span>build
+<span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>build
+<span class="gp">$ </span>cmake<span class="w"> </span>-D<span class="w"> </span><span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span>/tmp/calculator-example
+<span class="gp">$ </span>make
+<span class="gp">$ </span>make<span class="w"> </span><span class="nb">test</span>
+<span class="gp">$ </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../motivation/" class="btn btn-neutral float-left" title="Motivation and overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../hello-cmake/" class="btn btn-neutral float-right" title="From sources to executables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, EuroCC National Competence Centre Sweden (this is derived work from the ENCCS workshop, see &#39;Credits&#39; about changes).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

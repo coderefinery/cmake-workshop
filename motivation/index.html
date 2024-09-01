@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motivation and overview &mdash; CMake Workshop  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/coderefinery.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Brief tour to demonstrate concepts/capabilities" href="../tour/" />
+    <link rel="prev" title="Setting up your system" href="../setup/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            CMake Workshop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setting up your system</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Motivation and overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-is-make-not-enough">Why is Make not enough?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-cmake">What is CMake?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#having-a-look-at-available-generators">Having a look at available generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-complete-toolchain">A complete toolchain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-cmake">Why CMake?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cmake-is-a-domain-specific-language">CMake is a domain-specific language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-problems-to-expect-when-moving-to-cmake">What problems to expect when moving to CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tour/">Brief tour to demonstrate concepts/capabilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hands-on workshop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hello-cmake/">From sources to executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flags-definitions-debugging/">Compile flags, definitions, and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../targets/">Target-based build systems with CMake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environment/">Detecting your environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Finding and using dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/">Creating and running tests with CTest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fetch-content/">Automated dependency handling with FetchContent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../growing-projects/">Growing projects: pitfalls and recommendations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../resources/">Resources and books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits/">Credits</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">CMake Workshop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Motivation and overview</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/cmake-workshop/blob/main/content/motivation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="motivation-and-overview">
+<span id="motivation"></span><h1>Motivation and overview<a class="headerlink" href="#motivation-and-overview" title="Permalink to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Motivate why CMake.</p></li>
+<li><p>Learn what tools available in the CMake suite.</p></li>
+<li><p>Learn the difference between <em>build systems</em>, <em>build tools</em>, and <em>build system generator</em>.</p></li>
+<li><p>Learn to distinguish between <em>configuration</em>, <em>generation</em>, and <em>build</em> time.</p></li>
+</ul>
+</div>
+<p>Software is everywhere and so are build systems. Whenever you run a piece of
+software,  anything from calendar apps to computationally-intensive programs,
+there was a build system involved in transforming the plain-text source code
+into binary files that could run on the device you are using. In research code
+projects, CMake is often involved in this.</p>
+<section id="why-is-make-not-enough">
+<h2>Why is Make not enough?<a class="headerlink" href="#why-is-make-not-enough" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Make knows about targets and dependencies</p></li>
+<li><p>Make does not know which compiler (options) we want and which environment we are on</p></li>
+<li><p>We need to tell Make what depends on what (Fortran 90 projects)</p></li>
+</ul>
+</section>
+<section id="what-is-cmake">
+<h2>What is CMake?<a class="headerlink" href="#what-is-cmake" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Cross-platform (this is the C in CMake, not the C language)</p></li>
+<li><p>Open-source</p></li>
+<li><p>Actively developed: <a class="reference external" href="https://github.com/Kitware/CMake">https://github.com/Kitware/CMake</a></p></li>
+<li><p>Manages the build process in a compiler-independent manner</p></li>
+<li><p>Written in C++ (does not matter but if you want to build CMake yourself, C++ is all you need)</p></li>
+</ul>
+<p>CMake is a <strong>build-system generator</strong>: it provides a family of tools and a
+<em>domain-specific language</em> (DSL) to <strong>describe</strong> what the build system should
+achieve when the appropriate build tools are invoked.
+The DSL is platform- <em>and</em> compiler-agnostic: you can reuse the same CMake
+scripts to obtain <em>native</em> build systems on any platform.</p>
+<p>CMake is not a build system. It generates files for build systems to use
+to build the software.</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/build-systems.svg" src="../_images/build-systems.svg" /><figcaption>
+<p><span class="caption-text">On GNU/Linux, the native build system will be a collection of Makefiles.
+The <code class="docutils literal notranslate"><span class="pre">make</span></code> build tool uses these Makefiles to transform sources to
+executables and libraries.
+CMake abstracts the process of generating the Makefiles away into a
+generic DSL.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="having-a-look-at-available-generators">
+<h2>Having a look at available generators<a class="headerlink" href="#having-a-look-at-available-generators" title="Permalink to this heading"></a></h2>
+<p>Let us get acquainted with the CMake and especially its command-line interface.</p>
+<p>We can get help at any time with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>This will output quite a number of options to your screen.
+We can analyze the last few lines first (your output may differ):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Generators
+
+The following generators are available on this platform (* marks default):
+  Green Hills MULTI            = Generates Green Hills MULTI files
+                                 (experimental, work-in-progress).
+* Unix Makefiles               = Generates standard UNIX makefiles.
+  Ninja                        = Generates build.ninja files.
+  Ninja Multi-Config           = Generates build-&lt;Config&gt;.ninja files.
+  Watcom WMake                 = Generates Watcom WMake makefiles.
+  CodeBlocks - Ninja           = Generates CodeBlocks project files.
+  CodeBlocks - Unix Makefiles  = Generates CodeBlocks project files.
+  CodeLite - Ninja             = Generates CodeLite project files.
+  CodeLite - Unix Makefiles    = Generates CodeLite project files.
+  Eclipse CDT4 - Ninja         = Generates Eclipse CDT 4.0 project files.
+  Eclipse CDT4 - Unix Makefiles= Generates Eclipse CDT 4.0 project files.
+  Kate - Ninja                 = Generates Kate project files.
+  Kate - Unix Makefiles        = Generates Kate project files.
+  Sublime Text 2 - Ninja       = Generates Sublime Text 2 project files.
+  Sublime Text 2 - Unix Makefiles
+                               = Generates Sublime Text 2 project files.
+</pre></div>
+</div>
+<p>In CMake terminology, the native build scripts and build tools are called
+<strong>generators</strong>. On any particular platform, the list will show which native
+build tools can be used through CMake. They can either be “plain”, such as
+Makefiles or Ninja, or IDE-like projects.</p>
+<p>You can also inquire about a specific module, command or variable:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--help-variable<span class="w"> </span>CMAKE_GENERATOR
+</pre></div>
+</div>
+<p>Finally, you can access the full CMake manual with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--help-full
+</pre></div>
+</div>
+</section>
+<section id="a-complete-toolchain">
+<h2>A complete toolchain<a class="headerlink" href="#a-complete-toolchain" title="Permalink to this heading"></a></h2>
+<p>The family of tools provided with CMake offers a complete toolchain to manage
+the development cycle: from sources to build artifacts, testing, and deployment.
+We refer to these stages as <em>CMake times</em> and each tool is appropriate at a specific time. In this workshop, we will discuss:</p>
+<ul class="simple">
+<li><p><strong>CMake time</strong> or <strong>configure time</strong>. This is the stage when <code class="docutils literal notranslate"><span class="pre">cmake</span></code> is
+invoked to parse the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> in your project, configure and generate the build
+system.</p></li>
+<li><p><strong>Build time</strong>. This is handled by the native build tools, but, as we have
+seen, these can be effectively wrapped by <code class="docutils literal notranslate"><span class="pre">cmake</span></code> itself.</p></li>
+<li><p><strong>CTest time</strong> or <strong>test time</strong>. At this stage, you will test your build
+artifacts.</p></li>
+</ul>
+<figure class="align-center" id="id2">
+<img alt="../_images/cmake-times.jpg" src="../_images/cmake-times.jpg" />
+<figcaption>
+<p><span class="caption-text">You can manage all the stages of a software project’s lifetime with the tools provided by CMake.
+This figure shows all these stages (<em>times</em>) and which tool is appropriate for each.
+The figure is reproduced from <a class="reference external" href="https://github.com/dev-cafe/cmake-cookbook">CMake Cookbook</a> and is licensed under the
+terms of the <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA</a>.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="why-cmake">
+<h2>Why CMake?<a class="headerlink" href="#why-cmake" title="Permalink to this heading"></a></h2>
+<p>Separation of source and build path:</p>
+<ul class="simple">
+<li><p><strong>Out-of-source compilation</strong> (possibility to compile several builds with the same source)</p></li>
+</ul>
+<p>Portability:</p>
+<ul class="simple">
+<li><p>Really <strong>cross-platform</strong> (Linux, Mac, Windows, AIX, iOS, Android)</p></li>
+<li><p>CMake defines portable variables about the system</p></li>
+<li><p>Cross-platform system- and library-discovery</p></li>
+</ul>
+<p>Language support:</p>
+<ul class="simple">
+<li><p>Excellent support for <strong>Fortran, C, C++</strong>, and Java, as well as mixed-language projects</p></li>
+<li><p>CMake understands Fortran 90 dependencies very well; no need to program a dependency scanner</p></li>
+<li><p>Excellent support for multi-component and multi-library projects</p></li>
+</ul>
+<p>Supports modular code development:</p>
+<ul class="simple">
+<li><p>Makes it possible and relatively easy to download, configure, build, install, and link <strong>external modules</strong></p></li>
+</ul>
+<p>Provides tools:</p>
+<ul class="simple">
+<li><p>Generates user interface (command-line or text-UI or GUI)</p></li>
+<li><p>Full-fledged <strong>testing and packaging framework</strong> with CTest and CPack</p></li>
+<li><p>CTest can run sequential tests in parallel</p></li>
+</ul>
+<p>Popular:</p>
+<ul class="simple">
+<li><p>CMake is used by <strong>many prominent projects</strong>:
+MySQL, Boost, VTK, Blender, KDE, LyX, Mendeley, MikTeX, Compiz,
+Google Test, ParaView, Second Life, Avogadro, and many more …</p></li>
+</ul>
+<p>General:</p>
+<ul class="simple">
+<li><p>Not bound to the generation of Makefiles</p></li>
+</ul>
+<p>Discovery of environment, libraries, packages:</p>
+<ul class="simple">
+<li><p>Huge community</p></li>
+<li><p>Many solutions already exist: <a class="reference external" href="https://github.com/Kitware/CMake/tree/master/Modules">https://github.com/Kitware/CMake/tree/master/Modules</a></p></li>
+</ul>
+<p>Can co-exist with other tools:</p>
+<ul class="simple">
+<li><p>Non-intrusive: All you need is a <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>. CMake won’t mind if other build tools
+are there as well in the project.</p></li>
+</ul>
+</section>
+<section id="cmake-is-a-domain-specific-language">
+<h2>CMake is a domain-specific language<a class="headerlink" href="#cmake-is-a-domain-specific-language" title="Permalink to this heading"></a></h2>
+<p>CMake offers a domain-specific language (DSL) to describe how to generate a
+build system native to the specific platform you might be running on.</p>
+<p>It contains everything we expect from a language:</p>
+<ul class="simple">
+<li><p>variables</p></li>
+<li><p>means to iterate through collections: foreach</p></li>
+<li><p>flow-control (if-statements)</p></li>
+<li><p>options</p></li>
+<li><p>command-line interface</p></li>
+<li><p>modules</p></li>
+<li><p>includes</p></li>
+<li><p>functions</p></li>
+<li><p>macros</p></li>
+</ul>
+<p>To see all available commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--help-command-list
+</pre></div>
+</div>
+<p>Help on a specific built-in command, function or macro can be obtained with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--help-command<span class="w"> </span>target_link_libraries
+</pre></div>
+</div>
+<p>This means we can implement “everything” in CMake and there will be many ways
+to achieve any solution. But the language will also not prevent us from
+implementing complicated contraptions. In the tutorial/workshop part we will
+revisit some good and less good solutions.</p>
+</section>
+<section id="what-problems-to-expect-when-moving-to-cmake">
+<h2>What problems to expect when moving to CMake<a class="headerlink" href="#what-problems-to-expect-when-moving-to-cmake" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>CMake has so many good defaults and most of the time it just works and it can feel
+a bit magic.</p></li>
+<li><p>The language and the module ecosystem offers all the possibilities and it is
+easy to go a bit overboard.</p></li>
+<li><p>With more CMake code complexity one can then compromise some portability and
+maintainability.</p></li>
+<li><p>When things stop working, then it can be difficult for beginners to know where
+to look and where to edit.</p></li>
+<li><p>For larger development teams it is yet another tool: the “better” tool we
+don’t know compared to the familiar tool that everybody understands.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../setup/" class="btn btn-neutral float-left" title="Setting up your system" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tour/" class="btn btn-neutral float-right" title="Brief tour to demonstrate concepts/capabilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, EuroCC National Competence Centre Sweden (this is derived work from the ENCCS workshop, see &#39;Credits&#39; about changes).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

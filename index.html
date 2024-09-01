@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMake introduction and hands-on workshop &mdash; CMake Workshop  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_lesson.css" />
+      <link rel="stylesheet" type="text/css" href="_static/term_role_formatting.css" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+
+  
+    <link rel="shortcut icon" href="_static/coderefinery.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="#" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex/" />
+    <link rel="search" title="Search" href="search/" />
+    <link rel="next" title="Setting up your system" href="setup/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            CMake Workshop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="setup/">Setting up your system</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="motivation/">Motivation and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tour/">Brief tour to demonstrate concepts/capabilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hands-on workshop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hello-cmake/">From sources to executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flags-definitions-debugging/">Compile flags, definitions, and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="targets/">Target-based build systems with CMake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environment/">Detecting your environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies/">Finding and using dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/">Creating and running tests with CTest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fetch-content/">Automated dependency handling with FetchContent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="growing-projects/">Growing projects: pitfalls and recommendations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="resources/">Resources and books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits/">Credits</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">CMake Workshop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">CMake introduction and hands-on workshop</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/cmake-workshop/blob/main/content/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cmake-introduction-and-hands-on-workshop">
+<h1>CMake introduction and hands-on workshop<a class="headerlink" href="#cmake-introduction-and-hands-on-workshop" title="Permalink to this heading"></a></h1>
+<p>CMake is a language-agnostic, cross-platform build tool and is nowadays the <em>de
+facto</em> standard,  with many large projects using it to reliably build, test, and
+deploy their codebases.</p>
+<section id="learning-outcomes">
+<h2>Learning outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this heading"></a></h2>
+<p>You will learn how to:</p>
+<ul class="simple">
+<li><p>Write a CMake build system for C, C++, and Fortran projects producing
+libraries and/or executables.</p></li>
+<li><p>Run tests for your code with CTest.</p></li>
+<li><p>Ensure your build system will work on different platforms.</p></li>
+<li><p>Detect and use external dependencies in your project.</p></li>
+<li><p>Recognize modular patterns but also recognize and know how to avoid
+problematic and later unmaintainable “spaghetti” patterns.</p></li>
+</ul>
+</section>
+<section id="topics-not-covered">
+<h2>Topics not covered<a class="headerlink" href="#topics-not-covered" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Probing compilation, linking, and execution</p></li>
+<li><p>Composing CMake projects from non-CMake projects</p></li>
+<li><p>Superbuilds</p></li>
+<li><p>Cross-compilation</p></li>
+<li><p>GPUs</p></li>
+<li><p>Mixing C/C++/Fortran with Python</p></li>
+<li><p>pkg-config for finding dependencies</p></li>
+</ul>
+<div class="admonition-prerequisites prerequisites admonition" id="prerequisites-0">
+<p class="admonition-title">Prerequisites</p>
+<p><strong>Software requirements</strong></p>
+<p>Before attending this workshop, please make sure that you have access
+to a computer with a compiler for your favorite language and a recent version of CMake.
+Instructions on how to set up these dependencies can be found
+on the <a class="reference internal" href="setup/"><span class="doc">Setting up your system</span></a> page.</p>
+<p><strong>Who is the course for?</strong></p>
+<p>This course is for students, researchers, engineers, and programmers that have
+heard of <a class="reference external" href="https://cmake.org/cmake/help/v3.19/">CMake</a> and want to learn how to use it effectively with projects they
+are working on.
+This course assumes no previous experience with <a class="reference external" href="https://cmake.org/cmake/help/v3.19/">CMake</a>. You will have to be
+familiar with the tools commonly used to build software in your compiled
+language of choice: C++, C, Fortran.
+Specifically, this lesson assumes that participants have some prior experience
+with or knowledge of the following topics (but no expertise is required):</p>
+<ul class="simple">
+<li><p>Compiling and linking executables and libraries.</p></li>
+<li><p>Differences between shared and static libraries.</p></li>
+<li><p>Automated testing.</p></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can find all examples, exercises, and solutions at <a class="reference external" href="https://github.com/coderefinery/cmake-workshop">https://github.com/coderefinery/cmake-workshop</a>.
+In there navigate to <a class="reference external" href="https://github.com/coderefinery/cmake-workshop/tree/main/content/examples">content/examples/</a>.</p>
+</div>
+</section>
+<section id="schedule">
+<h2>Schedule<a class="headerlink" href="#schedule" title="Permalink to this heading"></a></h2>
+<p>Timing still being adjusted. It’s still too much material:</p>
+<table class="docutils align-center">
+<tbody>
+<tr class="row-odd"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="motivation/#motivation"><span class="std std-ref">Motivation and overview</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="tour/#tour"><span class="std std-ref">Brief tour to demonstrate concepts/capabilities</span></a></p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>Lunch break</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="hello-cmake/#hello-world-executable"><span class="std std-ref">Type-along: building an executable</span></a> and setup help</p></td>
+</tr>
+<tr class="row-odd"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="hello-cmake/#hello-world-library"><span class="std std-ref">Exercise: building and linking a library</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>10 min</p></td>
+<td><p><a class="reference internal" href="flags-definitions-debugging/#flags-definitions-debugging"><span class="std std-ref">Compile flags, definitions, and debugging</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>20 min</p></td>
+<td><p><a class="reference internal" href="targets/#targets"><span class="std std-ref">Target-based build systems with CMake</span></a></p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>10 min</p></td>
+<td><p>Break</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="targets/#multiple-folders"><span class="std std-ref">Building a larger project with multiple folders</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>20 min</p></td>
+<td><p><a class="reference internal" href="environment/#environment"><span class="std std-ref">Detecting your environment</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>20 min</p></td>
+<td><p><a class="reference internal" href="dependencies/#dependencies"><span class="std std-ref">Finding and using dependencies</span></a></p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>10 min</p></td>
+<td><p>Break</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>10 min</p></td>
+<td><p><a class="reference internal" href="testing/#testing"><span class="std std-ref">Creating and running tests with CTest</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="testing/#testing-exercises"><span class="std std-ref">Exercises: testing with CTest</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>20 min</p></td>
+<td><p><a class="reference internal" href="fetch-content/#fetch-content"><span class="std std-ref">Automated dependency handling with FetchContent</span></a></p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="growing-projects/#growing-projects"><span class="std std-ref">Growing projects: pitfalls and recommendations</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="resources/">Resources and books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits/">Credits</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup/" class="btn btn-neutral float-right" title="Setting up your system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, EuroCC National Competence Centre Sweden (this is derived work from the ENCCS workshop, see &#39;Credits&#39; about changes).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

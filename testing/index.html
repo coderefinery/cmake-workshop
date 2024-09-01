@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating and running tests with CTest &mdash; CMake Workshop  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/coderefinery.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Automated dependency handling with FetchContent" href="../fetch-content/" />
+    <link rel="prev" title="Finding and using dependencies" href="../dependencies/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            CMake Workshop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setting up your system</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/">Motivation and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tour/">Brief tour to demonstrate concepts/capabilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hands-on workshop</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hello-cmake/">From sources to executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flags-definitions-debugging/">Compile flags, definitions, and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../targets/">Target-based build systems with CMake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environment/">Detecting your environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Finding and using dependencies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating and running tests with CTest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-tests-to-your-project">Adding tests to your project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-properties-labels-timeout-and-cost">Test properties: labels, timeout, and cost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-ctest-command-line-interface">The CTest command-line interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-testing-with-ctest">Exercises: testing with CTest</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../fetch-content/">Automated dependency handling with FetchContent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../growing-projects/">Growing projects: pitfalls and recommendations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../resources/">Resources and books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits/">Credits</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">CMake Workshop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Creating and running tests with CTest</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/cmake-workshop/blob/main/content/testing.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-and-running-tests-with-ctest">
+<span id="testing"></span><h1>Creating and running tests with CTest<a class="headerlink" href="#creating-and-running-tests-with-ctest" title="Permalink to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn how to produce test executables with CMake.</p></li>
+<li><p>Learn how to run your tests through CTest.</p></li>
+</ul>
+</div>
+<p>Testing is an essential activity in the development cycle. A well-designed test
+suite will help you detect bugs and can also facilitate the onboarding of new
+developers.  In this episode, we will look into how to use CTest to define and
+run our tests.</p>
+<section id="adding-tests-to-your-project">
+<h2>Adding tests to your project<a class="headerlink" href="#adding-tests-to-your-project" title="Permalink to this heading"></a></h2>
+<p>In CMake and CTest, a test is any command returning an exit code. It does not
+really matter how the command is issued or what is run: it can be a C++
+executable or a Python script or a shell script. As long as the execution
+returns a zero or non-zero exit code, CMake will be able to classify the test
+as succeeded or failed, respectively.</p>
+<p>There are two steps to perform to integrate your CMake build system with the CTest tool:</p>
+<ol class="arabic simple">
+<li><p>Call the <code class="docutils literal notranslate"><span class="pre">enable_testing</span></code> command. This takes no arguments.</p></li>
+<li><p>Add tests with the <a class="reference internal" href="https://cmake.org/cmake/help/latest/command/add_test.html"><span class="xref std std-term"><code class="docutils literal notranslate">add_test</code></span></a> command.</p></li>
+</ol>
+<div class="admonition-add-test signature toggle-shown dropdown admonition" id="signature-0">
+<p class="admonition-title"><a class="reference internal" href="https://cmake.org/cmake/help/latest/command/add_test.html"><span class="xref std std-term"><code class="docutils literal notranslate">add_test</code></span></a></p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">add_test</span><span class="p">(</span><span class="s">NAME</span><span class="w"> </span><span class="s">&lt;name&gt;</span><span class="w"> </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">&lt;command&gt;</span><span class="w"> </span><span class="s">[&lt;arg&gt;...]</span>
+<span class="w">   </span><span class="s">[CONFIGURATIONS</span><span class="w"> </span><span class="s">&lt;config&gt;...]</span>
+<span class="w">   </span><span class="s">[WORKING_DIRECTORY</span><span class="w"> </span><span class="s">&lt;dir&gt;]</span>
+<span class="w">   </span><span class="s">[COMMAND_EXPAND_LISTS]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This command accepts <em>named arguments</em>, only <code class="docutils literal notranslate"><span class="pre">NAME</span></code> and <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> are
+mandatory.  The former specifies the identifying name of the test, while the
+latter sets up what command to run.</p>
+</div>
+<div class="admonition-our-first-test-project typealong toggle-shown dropdown admonition" id="typealong-0">
+<p class="admonition-title">Our first test project</p>
+<p>We will build a simple library to sum integers and an executable using this library.
+This example is in <code class="docutils literal notranslate"><span class="pre">content/examples/testing/</span></code>.</p>
+<p>If you compile the code (please try!) you get an executable that can sum integers
+given on the command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./sum_up<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
+
+<span class="go">15</span>
+
+<span class="gp">$ </span>./sum_up<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">200</span>
+
+<span class="go">300</span>
+</pre></div>
+</div>
+<p>The core of this example project is the <code class="docutils literal notranslate"><span class="pre">sum_integers</span></code> function:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;sum_integers.hpp&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">sum_integers</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">integers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">integers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Our goal will be to write tests for this function.</p>
+<p>As we wrote above, any script or binary that can return zero or non-zero can be used for
+this and we will start with this basic <code class="docutils literal notranslate"><span class="pre">test.cpp</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;sum_integers.hpp&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">integers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sum_integers</span><span class="p">(</span><span class="n">integers</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">15</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is how we can hook it up to CMake/CTest:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># set minimum cmake version</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.14</span><span class="p">)</span>
+
+<span class="c"># project name and language</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="c"># require C++14</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">14</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_EXTENSIONS</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+
+<span class="c"># example library</span>
+<span class="nb">add_library</span><span class="p">(</span><span class="s">sum_integers</span><span class="w"> </span><span class="s">sum_integers.cpp</span><span class="p">)</span>
+
+<span class="c"># main code</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">sum_up</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">sum_up</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">sum_integers</span><span class="p">)</span>
+
+<span class="c"># testing binary</span>
+<span class="hll"><span class="nb">add_executable</span><span class="p">(</span><span class="s">cpp_test</span><span class="w"> </span><span class="s">test.cpp</span><span class="p">)</span>
+</span><span class="hll"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">cpp_test</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">sum_integers</span><span class="p">)</span>
+</span>
+<span class="c"># enable testing functionality</span>
+<span class="hll"><span class="nb">enable_testing</span><span class="p">()</span>
+</span>
+<span class="c"># define tests</span>
+<span class="hll"><span class="nb">add_test</span><span class="p">(</span>
+</span><span class="hll"><span class="w">  </span><span class="s">NAME</span><span class="w"> </span><span class="s">cpp_test</span>
+</span><span class="hll"><span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">$&lt;</span><span class="nv">TARGET_FILE:cpp_test</span><span class="o">&gt;</span>
+</span><span class="hll"><span class="w">  </span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Note the use of <a class="reference external" href="https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html">generator expression (gen-exp)</a>
+to avoid specifying the complete path to the executable <code class="docutils literal notranslate"><span class="pre">cpp_test</span></code>.</p>
+<p>We can now compile and run our test:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>-S.<span class="w"> </span>-Bbuild
+<span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>build
+<span class="gp">$ </span>cmake<span class="w"> </span>--build<span class="w"> </span>.
+<span class="gp">$ </span>ctest
+</pre></div>
+</div>
+</div>
+</section>
+<section id="test-properties-labels-timeout-and-cost">
+<h2>Test properties: labels, timeout, and cost<a class="headerlink" href="#test-properties-labels-timeout-and-cost" title="Permalink to this heading"></a></h2>
+<p>When you use <a class="reference internal" href="https://cmake.org/cmake/help/latest/command/add_test.html"><span class="xref std std-term"><code class="docutils literal notranslate">add_test</code></span></a>, you give a unique name to each test.  But using
+<a class="reference internal" href="https://cmake.org/cmake/help/latest/command/set_tests_properties.html"><span class="xref std std-term"><code class="docutils literal notranslate">set_tests_properties</code></span></a> we can give tests other properties such as labels,
+timeout, cost, and many more.</p>
+<p>For a complete list of properties that can be set on tests search for
+“Properties on Tests” in the output of:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cmake<span class="w"> </span>--help-properties
+</pre></div>
+</div>
+<p>or visit the CMake documentation <a class="reference external" href="https://cmake.org/cmake/help/v3.19/manual/cmake-properties.7.html#properties-on-tests">online</a>.</p>
+</section>
+<section id="the-ctest-command-line-interface">
+<h2>The CTest command-line interface<a class="headerlink" href="#the-ctest-command-line-interface" title="Permalink to this heading"></a></h2>
+<div class="admonition-how-to-use-ctest-effectively typealong toggle-shown dropdown admonition" id="typealong-1">
+<p class="admonition-title">How to use CTest effectively.</p>
+<p>We will now demonstrate the CTest command-line interface (CLI) using the
+solution of the previous exercise.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ctest</span></code> command is part of the CMake installation. We can find help on its usage with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ctest<span class="w"> </span>--help
+</pre></div>
+</div>
+<p><strong>Remember</strong>, to run your tests through CTest, you will first need to move
+into the build folder:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>build
+<span class="gp">$ </span>ctest
+</pre></div>
+</div>
+<p>This will run all the tests in your test suite.
+You can list the names of the tests in the test suite with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ctest<span class="w"> </span>-N
+</pre></div>
+</div>
+<p>Verbosity options are also quite helpful, especially when debugging failures:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-V,--verbose                 = Enable verbose output from tests.
+-VV,--extra-verbose          = Enable more verbose output from tests.
+</pre></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">--output-on-failure</span></code>, CTest will print to screen the output of
+failing tests.</p>
+<p>You can select <em>subsets</em> of test to run:</p>
+<ul class="simple">
+<li><p>By <em>name</em>, with the <code class="docutils literal notranslate"><span class="pre">-R</span> <span class="pre">&lt;regex&gt;</span></code> flag. Any test whose <em>name</em> can be
+captured by the passed regex will be run.  The <code class="docutils literal notranslate"><span class="pre">-RE</span> <span class="pre">&lt;regex&gt;</span></code> option
+<em>excludes</em> tests by name using a regex.</p></li>
+<li><p>By <em>label</em>, with the <code class="docutils literal notranslate"><span class="pre">-L</span> <span class="pre">&lt;regex&gt;</span></code> flag. Any test whose <em>labels</em> can be
+captured by the passed regex will be run.  The <code class="docutils literal notranslate"><span class="pre">-LE</span> <span class="pre">&lt;regex&gt;</span></code> option
+<em>excludes</em> tests by label using a regex.</p></li>
+<li><p>By <em>number</em>, with the <code class="docutils literal notranslate"><span class="pre">-I</span> <span class="pre">[Start,End,Stride,test#,test#|Test</span> <span class="pre">file]</span></code> flag.
+This is usually not the most convenient option for selecting subsets of
+tests.</p></li>
+</ul>
+<p>It is possible to rerun failed tests with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ctest<span class="w"> </span>--rerun-failed
+</pre></div>
+</div>
+<p>Finally, you can parallelize test execution:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ctest<span class="w"> </span>-j<span class="w"> </span>N
+<span class="gp">$ </span>ctest<span class="w"> </span>--parallel<span class="w"> </span>N
+</pre></div>
+</div>
+</div>
+</section>
+<section id="exercises-testing-with-ctest">
+<span id="testing-exercises"></span><h2>Exercises: testing with CTest<a class="headerlink" href="#exercises-testing-with-ctest" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercise-adding-tests-and-labels exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise: adding tests and labels</p>
+<ol class="arabic simple">
+<li><p>Build the “summing up” example from above.</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">cpp_test</span></code> binary directly (it will produce no output).</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">ctest</span> <span class="pre">--verbose</span></code>.</p></li>
+<li><p>Try to break the code and check whether CTest will detect the degradation.</p></li>
+<li><p>Try to add a second test to the project.</p></li>
+</ol>
+</div>
+<div class="admonition-exercise-running-tests-in-parallel-and-understanding-the-cost-property exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise: running tests in parallel and understanding the COST property</p>
+<p>This example is in <code class="docutils literal notranslate"><span class="pre">content/examples/testing-parallel/</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Build the project and run the test set with <code class="docutils literal notranslate"><span class="pre">ctest</span></code>, observe the order of tests.</p></li>
+<li><p>Now uncomment the lines containing COST in <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p></li>
+</ol>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># set minimum cmake version</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.14</span><span class="p">)</span>
+
+<span class="c"># project name</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">NONE</span><span class="p">)</span>
+
+<span class="c"># detect python</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Python</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="c"># define tests</span>
+<span class="nb">enable_testing</span><span class="p">()</span>
+
+<span class="nb">add_test</span><span class="p">(</span><span class="s">a</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/a.py</span><span class="p">)</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">b</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/b.py</span><span class="p">)</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">c</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/c.py</span><span class="p">)</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">d</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/d.py</span><span class="p">)</span>
+<span class="hll"><span class="c">#set_tests_properties(a b c d PROPERTIES COST 0.5)</span>
+</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">e</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/e.py</span><span class="p">)</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">f</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/f.py</span><span class="p">)</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">g</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/g.py</span><span class="p">)</span>
+<span class="hll"><span class="c">#set_tests_properties(e f g PROPERTIES COST 1.5)</span>
+</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">h</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/h.py</span><span class="p">)</span>
+<span class="hll"><span class="c">#set_tests_properties(h PROPERTIES COST 2.5)</span>
+</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">i</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/i.py</span><span class="p">)</span>
+<span class="hll"><span class="c">#set_tests_properties(i PROPERTIES COST 3.5)</span>
+</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">j</span><span class="w"> </span><span class="o">${</span><span class="nv">Python_EXECUTABLE</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/test/j.py</span><span class="p">)</span>
+<span class="hll"><span class="c">#set_tests_properties(j PROPERTIES COST 4.5)</span>
+</span></pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Run the tests again and observe the order now.</p></li>
+<li><p>Run the tests in parallel on several cores (if you have them available).</p></li>
+<li><p>Discuss why it can be beneficial to define the COST if some tests take
+much longer than others (we could have also reordered them manually).</p></li>
+</ol>
+</div>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Any custom command can be defined as a test in CMake.</p></li>
+<li><p>Tests can be run through CTest.</p></li>
+<li><p>CTest particularly shines when running sequential tests in parallel.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../dependencies/" class="btn btn-neutral float-left" title="Finding and using dependencies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../fetch-content/" class="btn btn-neutral float-right" title="Automated dependency handling with FetchContent" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, EuroCC National Competence Centre Sweden (this is derived work from the ENCCS workshop, see &#39;Credits&#39; about changes).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

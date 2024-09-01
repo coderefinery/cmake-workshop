@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automated dependency handling with FetchContent &mdash; CMake Workshop  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/coderefinery.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Growing projects: pitfalls and recommendations" href="../growing-projects/" />
+    <link rel="prev" title="Creating and running tests with CTest" href="../testing/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            CMake Workshop
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">Setting up your system</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/">Motivation and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tour/">Brief tour to demonstrate concepts/capabilities</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Hands-on workshop</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hello-cmake/">From sources to executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../flags-definitions-debugging/">Compile flags, definitions, and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../targets/">Target-based build systems with CMake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environment/">Detecting your environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Finding and using dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/">Creating and running tests with CTest</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Automated dependency handling with FetchContent</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-fetchcontent-module">The FetchContent module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-unit-testing-with-catch2">Exercise: Unit testing with Catch2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../growing-projects/">Growing projects: pitfalls and recommendations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../resources/">Resources and books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits/">Credits</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">CMake Workshop</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Automated dependency handling with FetchContent</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/coderefinery/cmake-workshop/blob/main/content/fetch-content.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="automated-dependency-handling-with-fetchcontent">
+<span id="fetch-content"></span><h1>Automated dependency handling with FetchContent<a class="headerlink" href="#automated-dependency-handling-with-fetchcontent" title="Permalink to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn how to download your dependencies at configure-time with <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code>.</p></li>
+<li><p>Learn how fetched content can be used natively within your build system.</p></li>
+</ul>
+</div>
+<p>CMake offers <strong>two modules</strong> to satisfy missing dependencies on-the-fly:
+the <code class="docutils literal notranslate"><span class="pre">ExternalProject</span></code> and <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code> modules.</p>
+<dl class="simple">
+<dt>Using <code class="docutils literal notranslate"><span class="pre">ExternalProject</span></code></dt><dd><ul class="simple">
+<li><p>The download step happens at <a class="reference external" href="https://cmake.org/cmake/help/latest/module/ExternalProject.html">project build-time</a>.</p></li>
+<li><p>You can handle dependencies that <strong>do not</strong> use CMake.</p></li>
+<li><p>You need to rewrite your whole build system as a <a class="reference external" href="https://github.com/dev-cafe/cmake-cookbook/blob/master/chapter-08/README.md">superbuild</a>.</p></li>
+</ul>
+</dd>
+<dt>Using <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code></dt><dd><ul class="simple">
+<li><p>The download step happens at <a class="reference external" href="https://cmake.org/cmake/help/latest/module/FetchContent.html">project configure-time</a>.</p></li>
+<li><p>You can handle dependencies that <strong>do not</strong> use CMake.</p></li>
+<li><p>It’s an well-delimited change to an existing CMake build system.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Both are extremely powerful mechanisms.  In this episode, we will discuss the
+<code class="docutils literal notranslate"><span class="pre">FetchContent</span></code> module.</p>
+<section id="the-fetchcontent-module">
+<h2>The FetchContent module<a class="headerlink" href="#the-fetchcontent-module" title="Permalink to this heading"></a></h2>
+<p>To fetch dependencies on-the-fly at configure-time you will include the built-in
+CMake module <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code>.  This module has been part of CMake since its
+3.11 version and has been steadily improved since then.</p>
+<p>There are two steps in a <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code>-based workflow:</p>
+<ol class="arabic">
+<li><p><strong>Declaring</strong> the content to fetch with <a class="reference internal" href="https://cmake.org/cmake/help/latest/module/FetchContent.html"><span class="xref std std-term"><code class="docutils literal notranslate">FetchContent_Declare</code></span></a>. This can be a
+tarball (local or remote), a local folder, or a version control repository
+(Git, SVN, etc.).</p></li>
+<li><p><strong>Populating</strong> the content with <a class="reference internal" href="https://cmake.org/cmake/help/latest/module/FetchContent.html"><span class="xref std std-term"><code class="docutils literal notranslate">FetchContent_MakeAvailable</code></span></a>. This commands
+<em>adds</em> the targets declared in the external content to your build system.</p>
+<p>Since targets from the external project are added to your own project, you
+will be able to use them in the same way you would when obtaining them
+through a call to <a class="reference internal" href="https://cmake.org/cmake/help/latest/command/find_package.html"><span class="xref std std-term"><code class="docutils literal notranslate">find_package</code></span></a>: you can use <em>found</em> and <em>fetched</em> content
+in the same exact way.
+If you need to set options for building the external project, you will set
+them as CMake variables <em>before</em> calling <a class="reference internal" href="https://cmake.org/cmake/help/latest/module/FetchContent.html"><span class="xref std std-term"><code class="docutils literal notranslate">FetchContent_MakeAvailable</code></span></a>.</p>
+</li>
+</ol>
+</section>
+<section id="exercise-unit-testing-with-catch2">
+<span id="fetch-content-exercise"></span><h2>Exercise: Unit testing with Catch2<a class="headerlink" href="#exercise-unit-testing-with-catch2" title="Permalink to this heading"></a></h2>
+<p>Unit testing is a valuable technique in software engineering: it can help
+identify functional regressions with a very fine level of control, since each
+unit test is meant to exercise isolated components in your codebase.  Equipping
+your codebase with integration <em>and</em> unit tests is very good practice.</p>
+<p>There are many unit testing frameworks for the C++ language. Each of them
+stresses a slightly different approach to unit testing and comes with its own
+peculiarities in set up and usage.  In this episode, we will show how to use
+<a class="reference external" href="https://github.com/catchorg/Catch2">Catch2</a> a very popular unit testing
+framework which emphasizes a test-driven development workflow.  Catch2 is
+distributed as a single header file, which is one of its most appealing
+features: it can easily be included in any project. Rather than download the
+header file and adding it to our codebase, we can use <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code> to
+satisfy this dependency for us when needed.</p>
+<div class="admonition-exercise-fetching-and-using-catch2-to-test-our-code exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise: Fetching and using Catch2 to test our code</p>
+<p>We want to use the Catch2 unit testing framework for our test code
+(we stay with the example from <a class="reference internal" href="../testing/#testing"><span class="std std-ref">Creating and running tests with CTest</span></a>)
+and so we changed <code class="docutils literal notranslate"><span class="pre">test.cpp</span></code> to now contain:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;sum_integers.hpp&quot;</span>
+
+<span class="c1">// this tells catch to provide a main()</span>
+<span class="c1">// only do this in one cpp file</span>
+<span class="cp">#define CATCH_CONFIG_MAIN</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;catch2/catch.hpp&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;Sum of integers for a short vector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[short]&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">integers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+<span class="w">  </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">sum_integers</span><span class="p">(</span><span class="n">integers</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;Sum of integers for a longer vector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[long]&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">integers</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1001</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">integers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">sum_integers</span><span class="p">(</span><span class="n">integers</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">500500</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are two tests now, they also have tags (<code class="docutils literal notranslate"><span class="pre">[short]</span></code> and <code class="docutils literal notranslate"><span class="pre">[long]</span></code>).</p>
+<ol class="arabic simple">
+<li><p>Adapt the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> with these new lines:</p></li>
+</ol>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># set minimum cmake version</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.14</span><span class="p">)</span>
+
+<span class="c"># project name and language</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="c"># require C++14</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">14</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_EXTENSIONS</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+
+<span class="c"># example library</span>
+<span class="nb">add_library</span><span class="p">(</span><span class="s">sum_integers</span><span class="w"> </span><span class="s">sum_integers.cpp</span><span class="p">)</span>
+
+<span class="c"># main code</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">sum_up</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">sum_up</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">sum_integers</span><span class="p">)</span>
+
+<span class="c"># enable FetchContent</span>
+<span class="hll"><span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+</span>
+<span class="c"># declare Catch2</span>
+<span class="hll"><span class="nb">FetchContent_Declare</span><span class="p">(</span><span class="s">Catch2</span><span class="w">                              </span><span class="c"># name of the content</span>
+</span><span class="hll"><span class="w">  </span><span class="s">GIT_REPOSITORY</span><span class="w"> </span><span class="s">https://github.com/catchorg/Catch2.git</span><span class="w">  </span><span class="c"># the repository</span>
+</span><span class="hll"><span class="w">  </span><span class="s">GIT_TAG</span><span class="w">        </span><span class="s">v2.13.7</span><span class="w">                                 </span><span class="c"># the tag</span>
+</span><span class="hll"><span class="w">  </span><span class="p">)</span>
+</span>
+<span class="c"># make available</span>
+<span class="hll"><span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">Catch2</span><span class="p">)</span>
+</span>
+<span class="c"># testing binary</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">cpp_test</span><span class="w"> </span><span class="s">test.cpp</span><span class="p">)</span>
+<span class="hll"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">cpp_test</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">sum_integers</span><span class="w"> </span><span class="s">Catch2::Catch2</span><span class="p">)</span>
+</span>
+<span class="c"># enable testing functionality</span>
+<span class="nb">enable_testing</span><span class="p">()</span>
+
+<span class="c"># define tests</span>
+<span class="nb">add_test</span><span class="p">(</span>
+<span class="hll"><span class="w">  </span><span class="s">NAME</span><span class="w"> </span><span class="s">catch_test</span>
+</span><span class="hll"><span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">$&lt;</span><span class="nv">TARGET_FILE:cpp_test</span><span class="o">&gt;</span><span class="w"> </span><span class="s">--success</span>
+</span><span class="w">  </span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Build the code and run the tests with:</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./cpp_test<span class="w"> </span>--success
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Also try to run only one of the two:</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./cpp_test<span class="w"> </span><span class="o">[</span>short<span class="o">]</span><span class="w"> </span>--success
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Now run them via CTest:</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ctest<span class="w"> </span>--verbose
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>How would you adapt <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> to run them as two separate tests in CTest?
+Try it out.</p></li>
+<li><p>Discuss the pros and cons of running them as one or as two from
+CMake/CTest perspective.</p></li>
+</ol>
+</div>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>CMake lets you satisfy dependencies <em>on-the-fly</em>.</p></li>
+<li><p>You can do so at build-time with <code class="docutils literal notranslate"><span class="pre">ExternalProject</span></code>, but you need to adopt
+a superbuild framework.</p></li>
+<li><p>At configure-time, you can use the <code class="docutils literal notranslate"><span class="pre">FetchContent</span></code> module: it is more a appropriate with dependencies that also use CMake.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../testing/" class="btn btn-neutral float-left" title="Creating and running tests with CTest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../growing-projects/" class="btn btn-neutral float-right" title="Growing projects: pitfalls and recommendations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, EuroCC National Competence Centre Sweden (this is derived work from the ENCCS workshop, see &#39;Credits&#39; about changes).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

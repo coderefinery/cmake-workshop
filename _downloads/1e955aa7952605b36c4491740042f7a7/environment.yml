@@ -1,0 +1,14 @@
+name: cmake-workshop
+channels:
+  - conda-forge
+dependencies:
+  - cffi
+  - cmake
+  - compilers
+  - graphviz
+  - libblas
+  - liblapack
+  - openmpi
+  - ninja
+  - pkg-config
+  - python >=3.6
