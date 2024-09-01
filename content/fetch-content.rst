@@ -22,7 +22,7 @@ Using ``ExternalProject``
 Using ``FetchContent``
     - The download step happens at `project configure-time
       <https://cmake.org/cmake/help/latest/module/FetchContent.html>`_.
-    - You can only manage dependencies that use CMake.
+    - You can handle dependencies that **do not** use CMake.
     - It's an well-delimited change to an existing CMake build system.
 
 Both are extremely powerful mechanisms.  In this episode, we will discuss the
@@ -122,5 +122,4 @@ satisfy this dependency for us when needed.
    - CMake lets you satisfy dependencies *on-the-fly*.
    - You can do so at build-time with ``ExternalProject``, but you need to adopt
      a superbuild framework.
-   - At configure-time, you can use the ``FetchContent`` module: it can only be
-     applied with dependencies that also use CMake.
+   - At configure-time, you can use the ``FetchContent`` module: it is more a appropriate with dependencies that also use CMake.
